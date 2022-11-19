@@ -22,32 +22,27 @@ function EditBook() {
 
     const { token } = useContext(AuthContext)
     const handleOnChange = (e) => {
-        book[e.target.name] = book[e.target.value]
+        item[e.target.name] = item[e.target.value]
     }
     const [publish, setPublish] = useState('')
-    const [book, setBook] = useState({
+    const [item, setItem] = useState({
         name: '',
-        pagesCount: '',
-        categoryId: '',
-        des: '',
-        publish: '',
-        publisherId:'',
-        lang: '',
-        ISBN: '',
-        author: '',
-        kinle: '',
-        paper: '',
-        cover: '',
-
+        blurImage: '',
+        lat: '',
+        lng: '',
+        city: '',
+        state: '',
+        street: '',
+        description:'',
     })
     const { id } = useParams()
     const navigate = useNavigate()
-    const editBook = async (event) => {
+    const editItem = async (event) => {
         event.preventDefault()
-        let bookData = new FormData(event.target)
-        const added = await fetch(`${process.env.REACT_APP_API_URL}/books/edit/${id}`, {
+        let ItemData = new FormData(event.target)
+        const added = await fetch(`http://localhost:3000/items/${id}`, {
             method: 'PUT',
-            body:  bookData,
+            body:  ItemData,
             headers: {
                 "Content-Type": "application/json",
                 'Authorization': `Bearer ${token}`,
@@ -56,17 +51,17 @@ function EditBook() {
         const json = await added.json()
         alert(json.messages.join(' '))
         if (json.success) {
-            navigate('/books')
+            navigate('/items')
         }
     }
     useEffect(() => {
-        async function getBook() {
-            const singleBookData = await fetch(`${process.env.REACT_APP_API_URL}/books/${id}`)
-            const json = await singleBookData.json()
-            setBook(json.data)
-            console.log("json.data",json.data)
+        async function getItem() {
+            const singleItemData = await fetch(`http://localhost:3000/items`)
+            const json = await singleItemData.json()
+            setItem(json.data)
+            // console.log("json.data",json.data)
         }
-        getBook();
+        getItem();
     }, [])
     return (
         <DashboardLayout>
@@ -74,19 +69,19 @@ function EditBook() {
             <Grid container spacing={6}>
                 <Grid item xs={12}>
                     <Card>
-                        <form method="post" onSubmit={editBook}>
+                        <form method="post" onSubmit={editItem}>
                             <MDBox p={3}>
-                                <MDTypography variant='h5'>Edit A Book</MDTypography>
+                                <MDTypography variant='h5'>Edit A Item</MDTypography>
                                 <MDBox pt={4} pb={2}>
-                                    <MDBox mb={3}><TextField value={book?.name} onChange={(e) => { setBook({ ...book, name: e.target.value }) }} name="name" fullWidth label="Book name" /></MDBox>
-                                    <MDBox mb={3}><TextField value={book?.pagesCount} onChange={(e) => { setBook({ ...book, pagesCount: e.target.value }) }} name="pagesCount" fullWidth label="Pages Number" /></MDBox>
-                                    <MDBox mb={3}><TextField value={book?.categoryId} onChange={(e) => { setBook({ ...book, categoryId: e.target.value }) }} name="categoryId" fullWidth label="categoryId"/></MDBox>
-                                    <MDBox mb={3}><TextField value={book?.des} onChange={(e) => { setBook({ ...book, des: e.target.value }) }} name="des" fullWidth label="Description" /></MDBox>
-                                    <MDBox mb={3}><TextField value={book?.author} onChange={(e) => { setBook({ ...book, author: e.target.value }) }} name="author" fullWidth label="Author"/></MDBox>
-                                    <MDBox mb={3}><TextField value={book?.ISBN} onChange={(e) => { setBook({ ...book, ISBN: e.target.value }) }} name="ISBN" fullWidth label="ISBN" /></MDBox>
-                                    <MDBox mb={3}><TextField value={book?.lang} onChange={(e) => { setBook({ ...book, lang: e.target.value }) }} name="lang" fullWidth label="Language" /></MDBox>
+                                    <MDBox mb={3}><TextField value={item?.name} onChange={(e) => { setItem({ ...item, name: e.target.value }) }} name="name" fullWidth label="item name" /></MDBox>
+                                    <MDBox mb={3}><TextField value={item?.lat} onChange={(e) => { setItem({ ...item, lat: e.target.value }) }} name="lat" fullWidth label="lat"/></MDBox>
+                                    <MDBox mb={3}><TextField value={item?.lng} onChange={(e) => { setItem({ ...item, lng: e.target.value }) }} name="lng" fullWidth label="lng" /></MDBox>
+                                    <MDBox mb={3}><TextField value={item?.city} onChange={(e) => { setItem({ ...item, city: e.target.value }) }} name="city" fullWidth label="city"/></MDBox>
+                                    <MDBox mb={3}><TextField value={item?.description} onChange={(e) => { setItem({ ...item, description: e.target.value }) }} name="description" fullWidth label="description" /></MDBox>
+                                    <MDBox mb={3}><TextField value={item?.state} onChange={(e) => { setItem({ ...item, state: e.target.value }) }} name="state" fullWidth label="state" /></MDBox>
+                                    <MDBox mb={3}><TextField value={item?.street} onChange={(e) => { setItem({ ...item, street: e.target.value }) }} name="street" fullWidth label="street" /></MDBox>
                                     <MDBox mb={3}>
-                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                        {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
                                             <DatePicker
                                                 renderInput={(props) => <TextField value={book?.publish} onChange={(e) => { setBook({ ...book, publish: e.target.value }) }} name='publish' fullWidth {...props} />}
                                                 label="Publish Date"
@@ -98,29 +93,29 @@ function EditBook() {
                                                     setPublish(dayjs(newValue).format("YYYY-MM-DD"))
                                                 }}
                                             />
-                                        </LocalizationProvider>
+                                        </LocalizationProvider> */}
                                     </MDBox>
-                                    <MDBox mb={3}><TextField value={book?.publisherId} onChange={(e) => { setBook({ ...book, publisherId: e.target.value }) }} name="publisherId" fullWidth label="publisherId"  /></MDBox>
-                                    <MDBox mb={3}>
+                                    <MDBox mb={3}><TextField value={item?.blurImage} onChange={(e) => { setItem({ ...item, blurImage: e.target.value }) }} name="blurImage" fullWidth label="blurImage"  /></MDBox>
+                                    {/* <MDBox mb={3}>
                                         <FormControlLabel
                                             control={
-                                            <Checkbox value={book?.kindle} onChange={(e) => { setBook({ ...book, kindle: e.target.value }) }} name="kindle" />
+                                            <Checkbox value={item?.kindle} onChange={(e) => { setItem({ ...item, kindle: e.target.value }) }} name="kindle" />
                                             }
                                             label="Kindle"
                                         />
                                         <FormControlLabel
                                             control={
-                                            <Checkbox value={book?.paper} onChange={(e) => { setBook({ ...book, paper: e.target.value }) }} name="paper" />
+                                            <Checkbox value={item?.paper} onChange={(e) => { setItem({ ...item, paper: e.target.value }) }} name="paper" />
                                             }
                                             label="Paper"
                                         />
-                                    </MDBox>
+                                    </MDBox> */}
                                     <MDBox mb={3}>
                                         <Button variant="contained" component="label" color='primary'>
                                             <MDTypography color='white' variant="p">
                                                 <Grid container spacing={1}>
                                                     <Grid item><Icon>photo_library</Icon></Grid>
-                                                    <Grid item>Upload Cover</Grid>
+                                                    <Grid item>Upload Photo</Grid>
                                                 </Grid>
                                             </MDTypography>
                                             <input name='cover' hidden accept="image/*" single type="file" />
@@ -129,7 +124,7 @@ function EditBook() {
                                     <MDBox>
                                         <Button variant="contained" type="submit">
                                             <MDTypography color='white' variant="p">
-                                                Edit A Book
+                                                Edit an Item
                                             </MDTypography>
                                         </Button>
                                     </MDBox>

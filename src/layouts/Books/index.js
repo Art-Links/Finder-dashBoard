@@ -21,21 +21,24 @@ function Book() {
     const columns = [
         { Header: "id", accessor: "id", align: "left" },
         { Header: "name", accessor: "name", align: "left" },
-        { Header: "author", accessor: "author", align: "center" },
-        { Header: "pagesCount", accessor: "pagesCount", align: "center" },
-        { Header: "categoryId", accessor: "categoryId", align: "center" },
-        // { Header: "des", accessor: "des", align: "center" },
-        { Header: "cover", accessor: "cover", align: "center" },
-        { Header: "lang", accessor: "lang", align: "center" },
+        { Header: "img", accessor: "img", align: "center" },
+        { Header: "latX", accessor: "latX", align: "center" },
+        { Header: "longY", accessor: "longY", align: "center" },
+        { Header: "Category", accessor: "Category", align: "center" },
+        { Header: "des", accessor: "des", align: "center" },
+        { Header: "userId", accessor: "userId", align: "center" },
+        { Header: "userName", accessor: "userName", align: "center" },
+        { Header: "isReturned", accessor: "isReturned", align: "center" },
+        { Header: "allowedAttempts", accessor: "allowedAttempts", align: "center" },
         { Header: "options", accessor: "options", align: "center" },
     ];
     const [rows, setRows] = useState([]);
     const [tableRows, setTableRows] = useState([])
-    const{token}= useContext(AuthContext)
+    const { token } = useContext(AuthContext)
     // console.log("Token is ",token)
     const deleteBook = async (id) => {
         if (window.confirm('Are you sure you want to delete this book?')) {
-            const deleted = await fetch(`${process.env.REACT_APP_API_URL}/books/` + id, {
+            const deleted = await fetch(`http://localhost:3000/items/myItems`, {
                 method: 'DELETE',
                 headers: {
                     "Content-Type": "application/json",
@@ -43,8 +46,8 @@ function Book() {
                 },
             })
             const result = await deleted.json()
-            const remainedRows = rows.filter((book) => {
-                return book.id != id
+            const remainedRows = rows.filter((item) => {
+                return item.id != id
             })
             setRows(remainedRows)
             alert(result.messages.join(' '))
@@ -52,47 +55,60 @@ function Book() {
 
     }
     useEffect(() => {
-        const jsxRows = rows?.map((book) => {
-        // const categoryName = getCategoryName(book.categoryId)
-        // console.log("categoryName", categoryName)
-        // console.log("book categories",book.Categories)
-        return {
-            id: <>{book.id}</>,
-            name: <>{book.name}</>,
-            author: <>{book.author}</>,
-            pagesCount: <>{book.pagesCount}</>,
-            categoryId: <>{book?.Category?.name}</>,
-            // des: <>{book.des}</>,
-            cover: <>
-                        <Avatar
+        const jsxRows = rows?.map((item) => {
+            // const categoryName = getCategoryName(book.categoryId)
+            // console.log("categoryName", categoryName)
+            // console.log("book categories",book.Categories)
+            return {
+                id: <>{item.id}</>,
+                name: <>{item.name}</>,
+                img: <>{item.img}</>,
+                Category: <>{item.Category.name}</>,
+                latX: <>{item.latX}</>,
+                longY: <>{item?.longY}</>,
+                des: <>{item?.des}</>,
+                userId: <>{item?.User.id}</>,
+                userName: <>{item?.User.userName}</>,
+                isReturned: <>{item?.isReturned}</>,
+                allowedAttempts: <>{item?.allowedAttempts}</>,
+
+                // des: <>{book.des}</>,
+                cover: <>
+                    <Avatar
                         alt=""
                         variant="square"
-                        src={book.cover}
+                        src={item.img}
                         sx={{ width: 70, height: 70 }}
-                        /> 
-                    </>,
-            lang: <>{book.lang}</>,
-            options: <>
-                <MDButton variant="text" color="error" onClick={() => { deleteBook(book.id) }}>
-                    <Icon>delete</Icon>&nbsp;delete
-                </MDButton>
-                <Link to={`/books/edit/${book.id}`}>
-                    <MDButton variant="text" color="dark">
-                        <Icon>edit</Icon>&nbsp;edit
+                    />
+                </>,
+                // lang: <>{item.lang}</>,
+                options: <>
+                    <MDButton variant="text" color="error" onClick={() => { deleteBook(item.id) }}>
+                        <Icon>delete</Icon>&nbsp;delete
                     </MDButton>
-                </Link>
-            </>
-        };
+                    <Link to={`/items/edit/${item.id}`}>
+                        <MDButton variant="text" color="dark">
+                            <Icon>edit</Icon>&nbsp;edit
+                        </MDButton>
+                    </Link>
+                </>
+            };
         });
         setTableRows(jsxRows);
     }, [rows])
     useEffect(() => {
-        async function getBooks() {
-            const data = await fetch(`${process.env.REACT_APP_API_URL}/books/all`);
-            const books = await data.json()
-            setRows(books.data)
+        async function getItem() {
+            const data = await fetch(`http://localhost:3000/items`, {
+                method: 'Get',
+                headers: {
+                    "Content-Type": "application/json",
+                    'Authorization': `Bearer ${token}`,
+                },
+            })
+            const items = await data.json()
+            setRows(items.data)
         }
-        getBooks();
+        getItem();
     }, []);
     return (
         <DashboardLayout>
@@ -119,11 +135,11 @@ function Book() {
                                 >
                                     <Grid item>
                                         <MDTypography variant="h6" color="white">
-                                            books List
+                                            items List
                                         </MDTypography>
                                     </Grid>
                                     <Grid item>
-                                        <Link to='/books/add'>
+                                        <Link to='/items/add'>
                                             <MDButton variant="text" color="white">
                                                 <Icon>add_circle</Icon>&nbsp;Add
                                             </MDButton>

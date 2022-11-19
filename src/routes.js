@@ -41,7 +41,7 @@ import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
 import Users from "layouts/users";
-import Books from "layouts/Books";
+import Items from "layouts/Books";
 import AddBook from "layouts/Books/AddBook";
 import Admins from "layouts/Admins";
 import AddUser from "layouts/users/AddUser";
@@ -66,7 +66,7 @@ import { MdRateReview } from "react-icons/md";
 import Icon from "@mui/material/Icon";
 // import AddTrip from "layouts/trips/AddTrip";
 import EditUser from "layouts/users/EditUser";
-import EditBook from "layouts/Books/EditBook";
+import EditItem from "layouts/Books/EditBook";
 import EditCategory from "layouts/Categories/EditCategory";
 import EditAdmin from "layouts/Admins/EditAdmin";
 import AddAdmin from "layouts/Admins/AddAdmin";
@@ -183,11 +183,11 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Books",
-    key: "books",
+    name: "Items",
+    key: "items",
     icon: <SiBookstack />,
-    route: "/books",
-    component: <Books />,
+    route: "/items",
+    component: <Items />,
     sidenav: true,
   },
   {
@@ -202,11 +202,11 @@ const routes = [
  
   {
     type: "collapse",
-    name: "Edit book",
-    key: "Edit-book",
+    name: "Edit item",
+    key: "Edit-item",
     icon: <Icon fontSize="small">forest</Icon>,
-    route: "/books/edit/:id",
-    component: <EditBook />,
+    route: "/items/edit/:id",
+    component: <EditItem />,
     sidenav: false,
   },
   {
