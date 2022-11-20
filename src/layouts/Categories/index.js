@@ -12,6 +12,8 @@ import Icon from "@mui/material/Icon";
 import MDButton from "components/MDButton";
 import DataTable from "examples/Tables/DataTable";
 import { useContext, useEffect, useState } from "react";
+import { Avatar } from "@mui/material";
+
 
 import { Link } from "react-router-dom";
 import { AuthContext } from "context/Auth";
@@ -20,7 +22,7 @@ function Category() {
     const columns = [
         { Header: "id", accessor: "id", align: "left" },
         { Header: "name", accessor: "name", align: "left" },
-        { Header: "des", accessor: "des", align: "center" },
+        { Header: "icon", accessor: "icon", align: "center" },
         { Header: "options", accessor: "options", align: "center" },
     ];
     const [rows, setRows] = useState([]);
@@ -29,7 +31,7 @@ function Category() {
     console.log("Token is ",token)
     const deleteCategory = async (id) => {
         if (window.confirm('Are you sure you want to delete this category?')) {
-            const deleted = await fetch(`${process.env.REACT_APP_API_URL}/categories/` + id, {
+            const deleted = await fetch(`http://localhost:3000/category/` + id, {
                 method: 'DELETE',
                 headers: {
                     "Content-Type": "application/json",
@@ -50,7 +52,14 @@ function Category() {
             return {
                 id: <>{category.id}</>,
                 name: <>{category.name}</>,
-                des: <>{category.des}</>,
+                icon: <>
+                    <Avatar
+                        alt=""
+                        variant="square"
+                        src={category.icon}
+                        sx={{ width: 70, height: 70 }}
+                    />
+                </>,
                 options: <>
                     <MDButton variant="text" color="error" onClick={() => { deleteCategory(category.id) }}>
                         <Icon>delete</Icon>&nbsp;delete
@@ -67,7 +76,7 @@ function Category() {
     }, [rows])
     useEffect(() => {
         async function getCategories() {
-            const data = await fetch(`${process.env.REACT_APP_API_URL}/categories/all`);
+            const data = await fetch(`http://localhost:3000/category`);
             const categories = await data.json()
             setRows(categories.data)
         }

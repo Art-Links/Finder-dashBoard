@@ -33,7 +33,7 @@ Coded by www.creative-tim.com
 import Dashboard from "layouts/dashboard";
 // import Tables from "layouts/tables";
 // import Billing from "layouts/billing";
-import Authors from "layouts/authors"
+// import Authors from "layouts/authors"
 
 // import RTL from "layouts/rtl";
 // import Notifications from "layouts/notifications";
@@ -41,12 +41,12 @@ import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
 import Users from "layouts/users";
-import Items from "layouts/Books";
-import AddBook from "layouts/Books/AddBook";
+import Items from "layouts/Items";
+import AddItem from "layouts/Items/AddItem";
 import Admins from "layouts/Admins";
 import AddUser from "layouts/users/AddUser";
-import Review from "layouts/Reviews";
-import Comment from "layouts/Comments";
+// import Review from "layouts/Reviews";
+// import Comment from "layouts/Comments";
 import Category from "layouts/Categories";
 import AddCategory from "layouts/Categories/AddCategory";
 // import Reviews from "layouts/review";
@@ -66,12 +66,12 @@ import { MdRateReview } from "react-icons/md";
 import Icon from "@mui/material/Icon";
 // import AddTrip from "layouts/trips/AddTrip";
 import EditUser from "layouts/users/EditUser";
-import EditItem from "layouts/Books/EditBook";
+import EditItem from "layouts/Items/EditItem";
 import EditCategory from "layouts/Categories/EditCategory";
 import EditAdmin from "layouts/Admins/EditAdmin";
 import AddAdmin from "layouts/Admins/AddAdmin";
-import AddReview from "layouts/Reviews/AddReview";
-import EditReview from "layouts/Reviews/EditReview";
+// import AddReview from "layouts/Reviews/AddReview";
+// import EditReview from "layouts/Reviews/EditReview";
 
 const routes = [
   {
@@ -110,24 +110,24 @@ const routes = [
     component: <AddAdmin />,
     sidenav: false,
   },
-  {
-    type: "collapse",
-    name: "Author",
-    key: "author",
-    icon: <RiQuillPenLine />,
-    route: "/author",
-    component: <Authors />,
-    sidenav: false,
-  },
-  {
-    type: "collapse",
-    name: "Authors",
-    key: "author",
-    icon: <RiQuillPenLine />,
-    route: "/authors",
-    component: <Authors />,
-    sidenav: true,
-  },
+  // {
+  //   type: "collapse",
+  //   name: "Author",
+  //   key: "author",
+  //   icon: <RiQuillPenLine />,
+  //   route: "/author",
+  //   component: <Authors />,
+  //   sidenav: false,
+  // },
+  // {
+  //   type: "collapse",
+  //   name: "Authors",
+  //   key: "author",
+  //   icon: <RiQuillPenLine />,
+  //   route: "/authors",
+  //   component: <Authors />,
+  //   sidenav: true,
+  // },
   {
     type: "collapse",
     name: "Users",
@@ -187,16 +187,16 @@ const routes = [
     key: "items",
     icon: <SiBookstack />,
     route: "/items",
-    component: <Items />,
+    component: <Items/>,
     sidenav: true,
   },
   {
     type: "collapse",
-    name: "Add Book",
-    key: "add-Book",
+    name: "Add Item",
+    key: "add-Item",
     icon: <Icon fontSize="small">forest</Icon>,
-    route: "/books/add",
-    component: <AddBook />,
+    route: "/items/add",
+    component: <AddItem />,
     sidenav: false,
   },
  
@@ -211,40 +211,58 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Reviews",
-    key: "Reviews",
-    icon: <MdRateReview />,
-    route: "/reviews",
-    component: <Review />,
+    name: "Profile",
+    key: "profile",
+    icon: <Icon fontSize="small">person</Icon>,
+    route: "/profile",
+    component: <Profile />,
     sidenav: true,
   },
   {
     type: "collapse",
-    name: "Comments",
-    key: "Comments",
-    icon: <BiCommentDetail />,
-    route: "/comment",
-    component: <Comment />,
+    name: "Sign In",
+    key: "sign-in",
+    icon: <Icon fontSize="small">login</Icon>,
+    route: "/authentication/sign-in",
+    component: <SignIn />,
     sidenav: true,
   },
-  {
-    type: "collapse",
-    name: "Add Reviews",
-    key: "Add Reviews",
-    icon: <Icon fontSize="small">forest</Icon>,
-    route: "/reviews/add",
-    component: <AddReview />,
-    sidenav: false,
-  },
-  {
-    type: "collapse",
-    name: "Edit reviews",
-    key: "Edit Reviews",
-    icon: <Icon fontSize="small">forest</Icon>,
-    route: "/reviews/:id",
-    component: <EditReview />,
-    sidenav: false,
-  },
+  // {
+  //   type: "collapse",
+  //   name: "Reviews",
+  //   key: "Reviews",
+  //   icon: <MdRateReview />,
+  //   route: "/reviews",
+  //   component: <Review />,
+  //   sidenav: true,
+  // },
+  // {
+  //   type: "collapse",
+  //   name: "Comments",
+  //   key: "Comments",
+  //   icon: <BiCommentDetail />,
+  //   route: "/comment",
+  //   component: <Comment />,
+  //   sidenav: true,
+  // },
+  // {
+  //   type: "collapse",
+  //   name: "Add Reviews",
+  //   key: "Add Reviews",
+  //   icon: <Icon fontSize="small">forest</Icon>,
+  //   route: "/reviews/add",
+  //   component: <AddReview />,
+  //   sidenav: false,
+  // },
+  // {
+  //   type: "collapse",
+  //   name: "Edit reviews",
+  //   key: "Edit Reviews",
+  //   icon: <Icon fontSize="small">forest</Icon>,
+  //   route: "/reviews/:id",
+  //   component: <EditReview />,
+  //   sidenav: false,
+  // },
   // {
   //   type: "collapse",
   //   name: "Tables",
@@ -281,24 +299,7 @@ const routes = [
   //   component: <Notifications />,
   //   sidenav: true,
   // },
-  {
-    type: "collapse",
-    name: "Profile",
-    key: "profile",
-    icon: <Icon fontSize="small">person</Icon>,
-    route: "/profile",
-    component: <Profile />,
-    sidenav: true,
-  },
-  {
-    type: "collapse",
-    name: "Sign In",
-    key: "sign-in",
-    icon: <Icon fontSize="small">login</Icon>,
-    route: "/authentication/sign-in",
-    component: <SignIn />,
-    sidenav: true,
-  },
+ 
   // {
   //   type: "collapse",
   //   name: "Sign Up",

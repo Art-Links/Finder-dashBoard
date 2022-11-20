@@ -18,7 +18,7 @@ import { AuthContext } from "../../context/Auth";
 import { DateTimePicker,DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
-function EditBook() {
+function EditItem() {
 
     const { token } = useContext(AuthContext)
     const handleOnChange = (e) => {
@@ -30,10 +30,12 @@ function EditBook() {
         blurImage: '',
         lat: '',
         lng: '',
-        city: '',
-        state: '',
-        street: '',
         description:'',
+        placeId: '',
+        categoryId: '',
+        questions: '',
+        questions: '',
+        questions: '',
     })
     const { id } = useParams()
     const navigate = useNavigate()
@@ -76,10 +78,12 @@ function EditBook() {
                                     <MDBox mb={3}><TextField value={item?.name} onChange={(e) => { setItem({ ...item, name: e.target.value }) }} name="name" fullWidth label="item name" /></MDBox>
                                     <MDBox mb={3}><TextField value={item?.lat} onChange={(e) => { setItem({ ...item, lat: e.target.value }) }} name="lat" fullWidth label="lat"/></MDBox>
                                     <MDBox mb={3}><TextField value={item?.lng} onChange={(e) => { setItem({ ...item, lng: e.target.value }) }} name="lng" fullWidth label="lng" /></MDBox>
-                                    <MDBox mb={3}><TextField value={item?.city} onChange={(e) => { setItem({ ...item, city: e.target.value }) }} name="city" fullWidth label="city"/></MDBox>
+                                    <MDBox mb={3}><TextField value={item?.placeId} onChange={(e) => { setItem({ ...item, placeId: e.target.value }) }} name="placeId" fullWidth label="placeId"/></MDBox>
                                     <MDBox mb={3}><TextField value={item?.description} onChange={(e) => { setItem({ ...item, description: e.target.value }) }} name="description" fullWidth label="description" /></MDBox>
-                                    <MDBox mb={3}><TextField value={item?.state} onChange={(e) => { setItem({ ...item, state: e.target.value }) }} name="state" fullWidth label="state" /></MDBox>
-                                    <MDBox mb={3}><TextField value={item?.street} onChange={(e) => { setItem({ ...item, street: e.target.value }) }} name="street" fullWidth label="street" /></MDBox>
+                                    <MDBox mb={3}><TextField value={item?.categoryId} onChange={(e) => { setItem({ ...item, categoryId: e.target.value }) }} name="categoryId" fullWidth label="categoryId" /></MDBox>
+                                    <MDBox mb={3}><TextField value={item?.questions} onChange={(e) => { setItem({ ...item, questions: e.target.value }) }} name="questions" fullWidth label="questions" /></MDBox>
+                                    <MDBox mb={3}><TextField value={item?.questions} onChange={(e) => { setItem({ ...item, questions: e.target.value }) }} name="questions" fullWidth label="questions" /></MDBox>
+                                    <MDBox mb={3}><TextField value={item?.questions} onChange={(e) => { setItem({ ...item, questions: e.target.value }) }} name="questions" fullWidth label="questions" /></MDBox>
                                     <MDBox mb={3}>
                                         {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
                                             <DatePicker
@@ -138,4 +142,4 @@ function EditBook() {
     )
 }
 
-export default EditBook
+export default EditItem

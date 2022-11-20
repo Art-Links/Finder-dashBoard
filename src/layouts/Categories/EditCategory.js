@@ -23,7 +23,7 @@ function EditCategory() {
     
     const [category, setCategory] = useState({
         name: '',
-        des: '',
+        icon: '',
     })
     const { id } = useParams()
     const navigate = useNavigate()
@@ -67,7 +67,7 @@ function EditCategory() {
                                         <TextField value={category?.name} onChange={(e) => { setCategory({ ...category, name: e.target.value }) }} name="name" fullWidth label="category Name" />
                                     </MDBox>
                                     <MDBox mb={3}>
-                                        <TextField value={category?.des} onChange={(e) => { setCategory({ ...category, des: e.target.value }) }} name="des" fullWidth label="category des" />
+                                        <TextField value={category?.icon} onChange={(e) => { setCategory({ ...category, icon: e.target.value }) }} name="des" fullWidth label="category icon" />
                                     </MDBox>
 
                                     <MDBox>

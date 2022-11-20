@@ -24,29 +24,29 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import NativeSelect from '@mui/material/NativeSelect';
 
-function AddBook() {
+function AddItem() {
 
     const { token } = useContext(AuthContext)
     const [publish, setPublish] = useState('')
     const navigate = useNavigate()
-    const AddBook = async (event) => {
-        let BookData = new FormData(event.target)
+    const AddItem = async (event) => {
+        let ItemData = new FormData(event.target)
         event.preventDefault()
-        console.log("BookData", BookData)
+        console.log("ItemData", ItemData)
 
         // console.log("event.target", event.target)
-        const added = await fetch(`${process.env.REACT_APP_API_URL}/books`, {
+        const added = await fetch(`http://localhost:3000/items`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`,
             },
-            body: BookData
+            body: ItemData
         })
         const json = await added.json()
         // console.log(json)
         alert(json.messages.join(' '))
         if (json.success) {
-            navigate('/books')
+            navigate('/items')
         }
     }
     const [categories, setCategories] = useState()
@@ -60,13 +60,13 @@ function AddBook() {
         // console.log("categoriesData",categories)
         getCategories();
 
-        async function getPublishers() {
-            const data = await fetch(`${process.env.REACT_APP_API_URL}/publishers/all`);
-            const publishersData = await data.json()
-            // console.log("publishersData",publishersData)
-            setPublishers(publishersData.data)
-        }
-        getPublishers();
+        // async function getPublishers() {
+        //     const data = await fetch(`${process.env.REACT_APP_API_URL}/publishers/all`);
+        //     const publishersData = await data.json()
+        //     console.log("publishersData",publishersData)
+        //     setPublishers(publishersData.data)
+        // }
+        // getPublishers();
     }, []);
     return (
         <DashboardLayout>
@@ -74,11 +74,11 @@ function AddBook() {
             <Grid container spacing={6}>
                 <Grid item xs={12}>
                     <Card>
-                        <form method="post" onSubmit={AddBook}>
+                        <form method="post" onSubmit={AddItem}>
                             <MDBox p={3}>
-                                <MDTypography variant='h5'>Add New Book</MDTypography>
+                                <MDTypography variant='h5'>Add New Item</MDTypography>
                                 <MDBox pt={4} pb={2}>
-                                    <MDBox mb={3}><TextField name="name" fullWidth label="Book name" /></MDBox>
+                                    <MDBox mb={3}><TextField name="name" fullWidth label="Item name" /></MDBox>
                                     <MDBox mb={3}><TextField name="pagesCount" fullWidth label="Pages Number" /></MDBox>
                                     {/* <MDBox mb={3}><TextField name="categoryId" fullWidth label="CategoryId"/></MDBox> */}
                                     {/* <MDBox mb={3}>
@@ -221,7 +221,7 @@ function AddBook() {
                                     <MDBox>
                                         <Button variant="contained" type="submit">
                                             <MDTypography color='white' variant="p">
-                                                Add A New Book
+                                                Add A New Item
                                             </MDTypography>
                                         </Button>
                                     </MDBox>
@@ -235,4 +235,4 @@ function AddBook() {
     )
 }
 
-export default AddBook
+export default AddItem

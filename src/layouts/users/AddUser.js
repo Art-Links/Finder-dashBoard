@@ -12,15 +12,18 @@ import { TextField } from "@mui/material";
 
 import Button from "@mui/material/Button";
 import Icon from "@mui/material/Icon";
-import { useRef, useState } from "react";
+import { useRef, useState, useContext } from "react";
+import { AuthContext } from "../../context/Auth";
 import { useNavigate } from "react-router-dom";
 
 function AddUser() {
+
+    const { token } = useContext(AuthContext)
     const handleOnChange = (e) => {
         user[e.target.name] = user[e.target.value]
     }
     const [user, setUser]= useState({
-        username:'',
+        userName:'',
         email:'',
         password:'',
         passwordConfirmation:''
@@ -29,7 +32,7 @@ function AddUser() {
     const addUser = async (event) => {
         event.preventDefault()
         console.log(user)        
-        const added = await fetch(`${process.env.REACT_APP_API_URL}/users/signup`, {
+        const added = await fetch(`http://localhost:3000/users`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
@@ -53,7 +56,7 @@ function AddUser() {
                             <MDBox p={3}>
                                 <MDTypography variant='h5'>Add New User</MDTypography>
                                 <MDBox pt={4} pb={2}>
-                                    <MDBox mb={3}><TextField name="username" fullWidth label="Username" value={user.username} onChange={(e) => setUser({...user, username: e.target.value})}/></MDBox>
+                                    <MDBox mb={3}><TextField name="userName" fullWidth label="UserName" value={user.userName} onChange={(e) => setUser({...user, userName: e.target.value})}/></MDBox>
                                     <MDBox mb={3}><TextField name="email" fullWidth label="Email" value={user.email} onChange={(e) => setUser({...user, email: e.target.value})} /></MDBox>
                                     <MDBox mb={3}><TextField name="password" fullWidth label="Password" value={user.password} onChange={(e) => setUser({...user, password: e.target.value})} /></MDBox>
                                     <MDBox mb={3}><TextField name="passwordConfirmation" fullWidth value={user.passwordConfirmation} label="Password Confirmation" onChange={(e) => setUser({...user, passwordConfirmation: e.target.value})} /></MDBox>

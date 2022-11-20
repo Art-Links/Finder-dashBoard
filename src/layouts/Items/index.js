@@ -17,7 +17,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "context/Auth";
 import { Avatar } from "@mui/material";
 
-function Book() {
+function Item() {
     const columns = [
         { Header: "id", accessor: "id", align: "left" },
         { Header: "name", accessor: "name", align: "left" },
@@ -36,8 +36,8 @@ function Book() {
     const [tableRows, setTableRows] = useState([])
     const { token } = useContext(AuthContext)
     // console.log("Token is ",token)
-    const deleteBook = async (id) => {
-        if (window.confirm('Are you sure you want to delete this book?')) {
+    const deleteItem = async (id) => {
+        if (window.confirm('Are you sure you want to delete this item?')) {
             const deleted = await fetch(`http://localhost:3000/items/myItems`, {
                 method: 'DELETE',
                 headers: {
@@ -73,17 +73,17 @@ function Book() {
                 allowedAttempts: <>{item?.allowedAttempts}</>,
 
                 // des: <>{book.des}</>,
-                cover: <>
+                img: <>
                     <Avatar
                         alt=""
                         variant="square"
                         src={item.img}
-                        sx={{ width: 70, height: 70 }}
+                        sx={{ width: 80, height: 80 }}
                     />
                 </>,
                 // lang: <>{item.lang}</>,
                 options: <>
-                    <MDButton variant="text" color="error" onClick={() => { deleteBook(item.id) }}>
+                    <MDButton variant="text" color="error" onClick={() => { deleteItem(item.id) }}>
                         <Icon>delete</Icon>&nbsp;delete
                     </MDButton>
                     <Link to={`/items/edit/${item.id}`}>
@@ -168,4 +168,4 @@ function Book() {
     );
 }
 
-export default Book;
+export default Item;
