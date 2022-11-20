@@ -19,17 +19,16 @@ import { AuthContext } from "context/Auth";
 function AddAdmin() {
     const { token } = useContext(AuthContext);
     const [admin, setAdmin]= useState({
-        username:'',
+        userName:'',
         email:'',
         password:'',
         passwordConfirmation:'',
-        userTypeId: 1
     })
     const navigate = useNavigate()
     const addAdmin = async (event) => {
         event.preventDefault()
         console.log(admin)        
-        const added = await fetch(`${process.env.REACT_APP_API_URL}/admins`, {
+        const added = await fetch(`http://localhost:3000/admin`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
@@ -54,7 +53,7 @@ function AddAdmin() {
                             <MDBox p={3}>
                                 <MDTypography variant='h5'>Add New Admin</MDTypography>
                                 <MDBox pt={4} pb={2}>
-                                    <MDBox mb={3}><TextField name="username" fullWidth label="Username" value={admin.username} onChange={(e) => setAdmin({...admin, username: e.target.value})}/></MDBox>
+                                    <MDBox mb={3}><TextField name="userName" fullWidth label="userName" value={admin.userName} onChange={(e) => setAdmin({...admin, userName: e.target.value})}/></MDBox>
                                     <MDBox mb={3}><TextField name="email" fullWidth label="Email" value={admin.email} onChange={(e) => setAdmin({...admin, email: e.target.value})} /></MDBox>
                                     <MDBox mb={3}><TextField name="password" fullWidth label="Password" value={admin.password} onChange={(e) => setAdmin({...admin, password: e.target.value})} /></MDBox>
                                     <MDBox mb={3}><TextField name="password" fullWidth label="PasswordConfirmation" value={admin.passwordConfirmation} onChange={(e) => setAdmin({...admin, passwordConfirmation: e.target.value})} /></MDBox>

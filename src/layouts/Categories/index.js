@@ -28,7 +28,7 @@ function Category() {
     const [rows, setRows] = useState([]);
     const [tableRows, setTableRows] = useState([])
     const{token}= useContext(AuthContext)
-    console.log("Token is ",token)
+    // console.log("Token is ",token)
     const deleteCategory = async (id) => {
         if (window.confirm('Are you sure you want to delete this category?')) {
             const deleted = await fetch(`http://localhost:3000/category/` + id, {
@@ -61,7 +61,7 @@ function Category() {
                     />
                 </>,
                 options: <>
-                    <MDButton variant="text" color="error" onClick={() => { deleteCategory(category.id) }}>
+                    <MDButton variant="text" color="error" onClick={() => { deleteCategory(category.id) }}> 
                         <Icon>delete</Icon>&nbsp;delete
                     </MDButton>
                     <Link to={`/categories/${category.id}`}>

@@ -13,41 +13,44 @@ import Button from "@mui/material/Button";
 import { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { Avatar } from "@mui/material";
+import Icon from "@mui/material/Icon";
+
 
 import { AuthContext } from "context/Auth";
 
 function EditCategory() {
     
     const { token } = useContext(AuthContext);
-    console.log("token",token)
+    // console.log("token",token)
     
     const [category, setCategory] = useState({
         name: '',
-        icon: '',
+        icon: ''
     })
     const { id } = useParams()
     const navigate = useNavigate()
     const editCategory = async (event) => {
         event.preventDefault()
-        // let CategoryData = new FormData(event.target)
-        const edit = await fetch(`${process.env.REACT_APP_API_URL}/categories/edit/${id}`, {
+        let CategoryData = new FormData(event.target)
+        // console.log("CategoryData", CategoryData)
+        const edit = await fetch(`http://localhost:3000/category/${id}`, {
             method: 'PUT',
-            body: JSON.stringify(category),
+            body: CategoryData,
             headers: {
-                "Content-Type": "application/json",
                 'Authorization': `Bearer ${token}`,
             },
         })
         const json = await edit.json()
         alert(json.messages.join(' '))
         if (json.success) {
-            navigate('/categories')
+            navigate('/Categories')
         }
     }
 
     useEffect(() => {
         async function getCategory() {
-            const CategoryData = await fetch(`${process.env.REACT_APP_API_URL}/categories/all`)
+            const CategoryData = await fetch(`http://localhost:3000/category`)
             const json = await CategoryData.json()
             setCategory(json.data)
         }
@@ -66,8 +69,19 @@ function EditCategory() {
                                     <MDBox mb={3}>
                                         <TextField value={category?.name} onChange={(e) => { setCategory({ ...category, name: e.target.value }) }} name="name" fullWidth label="category Name" />
                                     </MDBox>
+                                    {/* <MDBox mb={3}>
+                                        <TextField value={category?.icon} onChange={(e) => { setCategory({ ...category, icon: e.target.value }) }} name="icon" fullWidth label="category icon" />
+                                    </MDBox> */}
                                     <MDBox mb={3}>
-                                        <TextField value={category?.icon} onChange={(e) => { setCategory({ ...category, icon: e.target.value }) }} name="des" fullWidth label="category icon" />
+                                        <Button variant="contained" component="label" color='primary'>
+                                            <MDTypography color='white' variant="p">
+                                                <Grid container spacing={1}>
+                                                    <Grid item><Icon>photo_library</Icon></Grid>
+                                                    <Grid item>Upload Photo</Grid>
+                                                </Grid>
+                                            </MDTypography>
+                                            <input name='icon' hidden accept="image/*" single type="file" />
+                                        </Button>
                                     </MDBox>
 
                                     <MDBox>
