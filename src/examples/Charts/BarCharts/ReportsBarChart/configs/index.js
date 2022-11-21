@@ -24,7 +24,7 @@ function configs(labels, datasets) {
           borderWidth: 0,
           borderRadius: 4,
           borderSkipped: false,
-          backgroundColor: "rgba(255, 255, 255, 0.8)",
+          backgroundColor: "##1CB5E0",
           data: datasets.data,
           maxBarThickness: 6,
         },
@@ -64,7 +64,7 @@ function configs(labels, datasets) {
               style: "normal",
               lineHeight: 2,
             },
-            color: "#fff",
+            color: "#000000",
           },
         },
         x: {

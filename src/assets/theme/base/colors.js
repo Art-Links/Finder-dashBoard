@@ -21,11 +21,11 @@ Coded by www.creative-tim.com
 
 const colors = {
   background: {
-    default: "#f0f2f5",
+    default: "#f5f1e6",
   },
 
   text: {
-    main: "#7b809a",
+    main: "#425275",
     focus: "#7b809a",
   },
 
