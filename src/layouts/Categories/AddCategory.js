@@ -9,41 +9,53 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import { TextField } from "@mui/material";
 
-
 import Button from "@mui/material/Button";
-import Icon from "@mui/material/Icon";
-import { useRef, useState,useContext } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../context/Auth";
+import { useParams } from "react-router-dom";
+import { Avatar } from "@mui/material";
+import Icon from "@mui/material/Icon";
+
+
+import { AuthContext } from "context/Auth";
 
 function AddCategory() {
-    const{token}= useContext(AuthContext)
-    const handleOnChange = (e) => {
-        category[e.target.name] = category[e.target.value]
-    }
-    const [category, setCategory]= useState({
-        name:'',
-        des:'',
+    
+    const { token } = useContext(AuthContext);
+    // console.log("token",token)
+    
+    const [category, setCategory] = useState({
+        name: '',
+        icon: ''
     })
+    // const { id } = useParams()
     const navigate = useNavigate()
     const addCategory = async (event) => {
         event.preventDefault()
-        console.log(category)        
-        const added = await fetch(`${process.env.REACT_APP_API_URL}/categories`, {
-            method: 'POST',
+        let CategoryData = new FormData(event.target)
+        // console.log("CategoryData", CategoryData)
+        const edit = await fetch(`http://localhost:3000/category`, {
+            method: 'Post',
+            body: CategoryData,
             headers: {
-                'Authorization': `Bearer ${token}`, 
-                "Content-Type": "application/json"
+                'Authorization': `Bearer ${token}`,
             },
-            body:  JSON.stringify(category)
         })
-        const json = await added.json()
-        console.log(json)
+        const json = await edit.json()
         alert(json.messages.join(' '))
         if (json.success) {
-            navigate('/categories')
+            navigate('/Categories')
         }
     }
+
+    useEffect(() => {
+        async function getCategory() {
+            const CategoryData = await fetch(`http://localhost:3000/category`)
+            const json = await CategoryData.json()
+            setCategory(json.data)
+        }
+        getCategory();
+    }, [])
     return (
         <DashboardLayout>
             <DashboardNavbar />
@@ -52,14 +64,30 @@ function AddCategory() {
                     <Card>
                         <form method="post" onSubmit={addCategory}>
                             <MDBox p={3}>
-                                <MDTypography variant='h5'>Add New Category</MDTypography>
+                                <MDTypography variant='h5'>Edit Category</MDTypography>
                                 <MDBox pt={4} pb={2}>
-                                    <MDBox mb={3}><TextField name="name" fullWidth label="name" value={category.name} onChange={(e) => setCategory({...category, name: e.target.value})}/></MDBox>
-                                    <MDBox mb={3}><TextField name="des" fullWidth label="des" value={category.des} onChange={(e) => setCategory({...category, des: e.target.value})} /></MDBox>
+                                    <MDBox mb={3}>
+                                        <TextField value={category?.name} onChange={(e) => { setCategory({ ...category, name: e.target.value }) }} name="name" fullWidth label="category Name" />
+                                    </MDBox>
+                                    {/* <MDBox mb={3}>
+                                        <TextField value={category?.icon} onChange={(e) => { setCategory({ ...category, icon: e.target.value }) }} name="icon" fullWidth label="category icon" />
+                                    </MDBox> */}
+                                    <MDBox mb={3}>
+                                        <Button variant="contained" component="label" color='primary'>
+                                            <MDTypography color='white' variant="p">
+                                                <Grid container spacing={1}>
+                                                    <Grid item><Icon>photo_library</Icon></Grid>
+                                                    <Grid item>Upload Photo</Grid>
+                                                </Grid>
+                                            </MDTypography>
+                                            <input name='icon' hidden accept="image/*" single type="file" />
+                                        </Button>
+                                    </MDBox>
+
                                     <MDBox>
                                         <Button variant="contained" type="submit">
                                             <MDTypography color='white' variant="p">
-                                                Add A New Category
+                                                Add categories
                                             </MDTypography>
                                         </Button>
                                     </MDBox>
