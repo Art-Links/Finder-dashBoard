@@ -121,7 +121,7 @@ function Dashboard () {
         <MDBox mt={4.5}>
           <Grid container spacing={3}>
             <Grid item xs={12} md={6} lg={4}>
-              <MDBox mb={3}>
+              {/* <MDBox mb={3}>
                 <ReportsBarChart
                   color="info"
                   title="website views"
@@ -129,10 +129,10 @@ function Dashboard () {
                   date="campaign sent 2 days ago"
                   chart={reportsBarChartData}
                 />
-              </MDBox>
+              </MDBox> */}
             </Grid>
             <Grid item xs={12} md={6} lg={4}>
-              <MDBox mb={3}>
+              {/* <MDBox mb={3}>
                 <ReportsLineChart
                   color="success"
                   title="daily sales"
@@ -144,10 +144,10 @@ function Dashboard () {
                   date="updated 4 min ago"
                   chart={sales}
                 />
-              </MDBox>
+              </MDBox> */}
             </Grid>
             <Grid item xs={12} md={6} lg={4}>
-              <MDBox mb={3}>
+              {/* <MDBox mb={3}>
                 <ReportsLineChart
                   color="dark"
                   title="completed tasks"
@@ -155,19 +155,19 @@ function Dashboard () {
                   date="just updated"
                   chart={tasks}
                 />
-              </MDBox>
+              </MDBox> */}
             </Grid>
           </Grid>
         </MDBox>
         <MDBox>
-          <Grid container spacing={3}>
+          {/* <Grid container spacing={3}>
             <Grid item xs={12} md={6} lg={8}>
               <Projects />
             </Grid>
             <Grid item xs={12} md={6} lg={4}>
               <OrdersOverview />
             </Grid>
-          </Grid>
+          </Grid> */}
         </MDBox>
       </MDBox>
       <Footer />
