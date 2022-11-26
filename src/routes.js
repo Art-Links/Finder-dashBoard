@@ -237,7 +237,6 @@ const routes = [
     route: "/authentication/sign-in",
     component: <SignOut/>,
     sidenav: true,
-    
   },
   // {
   //   type: "collapse",
