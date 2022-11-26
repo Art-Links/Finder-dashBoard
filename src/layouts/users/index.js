@@ -24,7 +24,7 @@ function Users() {
     { Header: "userName", accessor: "userName", align: "left" },
     { Header: "email", accessor: "email", align: "center" },
     // { Header: "password", accessor: "password", align: "center" },
-    { Header: "userTypeId", accessor: "userTypeId", align: "center" },
+    { Header: "userType", accessor: "userType", align: "center" },
     { Header: "options", accessor: "options", align: "center" },
   ];
   const [rows, setRows] = useState([]);
@@ -58,7 +58,7 @@ function Users() {
           id: <>{user.id}</>,
           userName: <>{user.userName}</>,
           email: <>{user.email}</>,
-          userTypeId: <>{user?.userTypeId}</>,
+          userType: <>{user?.UserType?.type}</>,
           options: <>
           <MDButton variant="text" color="error" onClick={() => { deleteUser(user.id) }}>
               <Icon>delete</Icon>&nbsp;delete

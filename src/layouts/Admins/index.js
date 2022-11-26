@@ -24,7 +24,7 @@ function Admin() {
         { Header: "id", accessor: "id", align: "left" },
         { Header: "name", accessor: "name", align: "left" },
         { Header: "email", accessor: "email", align: "center" },
-        { Header: "userTypeId", accessor: "userTypeId", align: "center" },
+        { Header: "userType", accessor: "userType", align: "center" },
         { Header: "options", accessor: "options", align: "center" },
 
     ];
@@ -55,7 +55,7 @@ function Admin() {
                 id: <>{admin?.id}</>,
                 name: <>{admin?.name}</>,
                 email: <>{admin?.email}</>,
-                userTypeId: <>{admin?.userTypeId}</>,
+                userType: <>{admin?.userType?.type}</>,
                 options: <>
                     <MDButton variant="text" color="error" onClick={() => { deleteAdmin(admin.id) }}>
                         <Icon>delete</Icon>&nbsp;delete

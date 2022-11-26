@@ -22,14 +22,14 @@ function Item() {
         { Header: "id", accessor: "id", align: "left" },
         { Header: "name", accessor: "name", align: "left" },
         { Header: "img", accessor: "img", align: "center" },
-        { Header: "latX", accessor: "latX", align: "center" },
-        { Header: "longY", accessor: "longY", align: "center" },
+        // { Header: "latX", accessor: "latX", align: "center" },
+        // { Header: "longY", accessor: "longY", align: "center" },
         { Header: "Category", accessor: "Category", align: "center" },
         { Header: "des", accessor: "des", align: "center" },
-        { Header: "userId", accessor: "userId", align: "center" },
+        // { Header: "userId", accessor: "userId", align: "center" },
         { Header: "userName", accessor: "userName", align: "center" },
         { Header: "isReturned", accessor: "isReturned", align: "center" },
-        { Header: "allowedAttempts", accessor: "allowedAttempts", align: "center" },
+        // { Header: "allowedAttempts", accessor: "allowedAttempts", align: "center" },
         { Header: "options", accessor: "options", align: "center" },
     ];
     const [rows, setRows] = useState([]);
@@ -38,7 +38,7 @@ function Item() {
     // console.log("Token is ",token)
     const deleteItem = async (id) => {
         if (window.confirm('Are you sure you want to delete this item?')) {
-            const deleted = await fetch(`http://localhost:3000/items/myItems`, {
+            const deleted = await fetch(`http://localhost:3000/items/${id}`, {
                 method: 'DELETE',
                 headers: {
                     "Content-Type": "application/json",
@@ -55,7 +55,7 @@ function Item() {
 
     }
     useEffect(() => {
-        const jsxRows = rows?.map((item) => {
+        const jsxRows = rows?.map((item, Category) => {
             // const categoryName = getCategoryName(book.categoryId)
             // console.log("categoryName", categoryName)
             // console.log("book categories",book.Categories)
@@ -63,14 +63,15 @@ function Item() {
                 id: <>{item.id}</>,
                 name: <>{item.name}</>,
                 img: <>{item.img}</>,
-                Category: <>{item.Category.name}</>,
-                latX: <>{item.latX}</>,
-                longY: <>{item?.longY}</>,
+                Category:<>{item?.Category?.name}</>,
+                // Category: <>{item.Category.name}</>,
+                // latX: <>{item.latX}</>,
+                // longY: <>{item?.longY}</>,
                 des: <>{item?.des}</>,
-                userId: <>{item?.User.id}</>,
+                // userId: <>{item?.User.id}</>,
                 userName: <>{item?.User.userName}</>,
                 isReturned: <>{item?.isReturned}</>,
-                allowedAttempts: <>{item?.allowedAttempts}</>,
+                // allowedAttempts: <>{item?.allowedAttempts}</>,
 
                 // des: <>{book.des}</>,
                 img: <>
@@ -81,16 +82,15 @@ function Item() {
                         sx={{ width: 80, height: 80 }}
                     />
                 </>,
-                // lang: <>{item.lang}</>,
                 options: <>
                     <MDButton variant="text" color="error" onClick={() => { deleteItem(item.id) }}>
                         <Icon>delete</Icon>&nbsp;delete
                     </MDButton>
-                    <Link to={`/items/edit/${item.id}`}>
+                    {/* <Link to={`/items/edit/${item.id}`}>
                         <MDButton variant="text" color="dark">
                             <Icon>edit</Icon>&nbsp;edit
                         </MDButton>
-                    </Link>
+                    </Link> */}
                 </>
             };
         });
@@ -138,13 +138,13 @@ function Item() {
                                             items List
                                         </MDTypography>
                                     </Grid>
-                                    <Grid item>
+                                    {/* <Grid item>
                                         <Link to='/items/add'>
                                             <MDButton variant="text" color="white">
                                                 <Icon>add_circle</Icon>&nbsp;Add
                                             </MDButton>
                                         </Link>
-                                    </Grid>
+                                    </Grid> */}
                                 </Grid>
 
                             </MDBox>

@@ -26,7 +26,8 @@ import Footer from "examples/Footer";
 import ReportsBarChart from "examples/Charts/BarCharts/ReportsBarChart";
 import ReportsLineChart from "examples/Charts/LineCharts/ReportsLineChart";
 import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
-
+import { useContext, useEffect, useState } from "react";
+// import { AuthContext } from "context/AuthContext";
 // Data
 import reportsBarChartData from "layouts/dashboard/data/reportsBarChartData";
 import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
@@ -34,24 +35,69 @@ import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
 // Dashboard components
 import Projects from "layouts/dashboard/components/Projects";
 import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
-import { useEffect, useState } from "react";
-import { RiQuillPenLine } from "react-icons/ri";
-import { SiBookstack } from "react-icons/si";
-import { MdPeopleAlt, MdRateReview } from "react-icons/md";
 
-function Dashboard () {
+function Dashboard() {
   const { sales, tasks } = reportsLineChartData;
-  const [countData, setCountData] = useState({})
+  // const ctx = useContext(AuthContext)
+
+  const [Users, setUsers] = useState([]);
+  const [Admins, setAdmins] = useState([]);
+  const [Category, setCategory] = useState([]);
+  const [Items, setItems] = useState([]);
+
+  // const [users, setCustomer] = useState([])
+
   useEffect(() => {
-    async function countFun () {
-      const data = await fetch(`${process.env.REACT_APP_API_URL}/counts`);
-      const json = await data.json()
-      // console.log("json",json)
-      setCountData(json.data)
-    }
-    countFun("countData",countData)
-  }, []);
-  // console.log()
+    fetch(`http://localhost:3000/users/all`)
+      .then(response => {
+        response.json().then(Users => {
+          console.log(Users.data.length, "hhhhhhhhhh")
+          setUsers(Users?.data)
+        })
+      })
+  }, [])
+  console.log("highlighter", Users.length)
+  const UsersN = Users.length
+
+
+  useEffect(() => {
+    fetch(`http://localhost:3000/admin`)
+      .then(response => {
+        response.json().then(Admins => {
+          // console.log(Admins.data.length, "hhhhhhhhhh")
+          setAdmins(Admins?.data)
+        })
+      })
+  }, [])
+  //  console.log("highlighter", Services.length)
+  const AdminsN = Admins.length
+
+
+  useEffect(() => {
+    fetch(`http://localhost:3000/category`)
+      .then(response => {
+        response.json().then(Category => {
+          // console.log(review.data.length, "hhhhhhhhhh")
+          setCategory(Category?.data)
+        })
+      })
+  }, [])
+  //  console.log("highlighter", Category.length)
+  const CategoryN = Category.length
+
+
+  useEffect(() => {
+    fetch(`http://localhost:3000/items`)
+      .then(response => {
+        response.json().then(Items => {
+          // console.log(Items.data.length, "hhhhhhhhhh")
+          setItems(Items?.data)
+        })
+      })
+  }, [])
+  //  console.log("highlighter", Items.length)
+  const ItemsN = Items.length
+
 
   return (
     <DashboardLayout>
@@ -62,9 +108,9 @@ function Dashboard () {
             <MDBox mb={1.5}>
               <ComplexStatisticsCard
                 color="dark"
-                icon= {<MdPeopleAlt />}
+                icon="person_add"
                 title="Users"
-                count={countData.usersCount}
+                count={UsersN}
                 percentage={{
                   color: "success",
                   // amount: "+55%",
@@ -73,12 +119,13 @@ function Dashboard () {
               />
             </MDBox>
           </Grid>
+
           <Grid item xs={12} md={6} lg={3}>
             <MDBox mb={1.5}>
               <ComplexStatisticsCard
-                icon= {<SiBookstack />}
-                title="Books"
-                count= {countData.booksCount}
+                icon="person_add"
+                title="Admins"
+                count={AdminsN}
                 percentage={{
                   color: "success",
                   // amount: "+3%",
@@ -87,41 +134,46 @@ function Dashboard () {
               />
             </MDBox>
           </Grid>
-          <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                color="success"
-                icon= {<MdRateReview />}
-                title="Reviews"
-                count= {countData.reviewsCount}
-                percentage={{
-                  color: "success",
-                  // amount: "+1%",
-                  // label: "than yesterday",
-                }}
-              />
-            </MDBox>
-          </Grid>
+
           <Grid item xs={12} md={6} lg={3}>
             <MDBox mb={1.5}>
               <ComplexStatisticsCard
                 color="primary"
-                icon= {<RiQuillPenLine />}
-                title="Authors"
-                count= {countData.authorsCount}
+                icon="leaderboard"
+                title="Categories"
+                count={CategoryN}
                 percentage={{
                   color: "success",
-                  // amount: "",
+                  amount: "",
                   // label: "Just updated",
                 }}
               />
             </MDBox>
           </Grid>
+
+          <Grid item xs={12} md={6} lg={3}>
+            <MDBox mb={1.5}>
+              <ComplexStatisticsCard
+                color="dark"
+                icon="leaderboard"
+                title="Items"
+                count={ItemsN}
+                percentage={{
+                  color: "success",
+                  amount: "",
+                  // label: "Just updated",
+                }}
+              />
+            </MDBox>
+          </Grid>
+
+
+
         </Grid>
         <MDBox mt={4.5}>
           <Grid container spacing={3}>
-            <Grid item xs={12} md={6} lg={4}>
-              {/* <MDBox mb={3}>
+            {/* <Grid item xs={12} md={6} lg={4}>
+              <MDBox mb={3}>
                 <ReportsBarChart
                   color="info"
                   title="website views"
@@ -129,10 +181,10 @@ function Dashboard () {
                   date="campaign sent 2 days ago"
                   chart={reportsBarChartData}
                 />
-              </MDBox> */}
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
-              {/* <MDBox mb={3}>
+              </MDBox>
+            </Grid> */}
+            {/* <Grid item xs={12} md={6} lg={4}>
+              <MDBox mb={3}>
                 <ReportsLineChart
                   color="success"
                   title="daily sales"
@@ -144,10 +196,10 @@ function Dashboard () {
                   date="updated 4 min ago"
                   chart={sales}
                 />
-              </MDBox> */}
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
-              {/* <MDBox mb={3}>
+              </MDBox>
+            </Grid> */}
+            {/* <Grid item xs={12} md={6} lg={4}>
+              <MDBox mb={3}>
                 <ReportsLineChart
                   color="dark"
                   title="completed tasks"
@@ -155,20 +207,20 @@ function Dashboard () {
                   date="just updated"
                   chart={tasks}
                 />
-              </MDBox> */}
-            </Grid>
+              </MDBox>
+            </Grid> */}
           </Grid>
         </MDBox>
-        <MDBox>
-          {/* <Grid container spacing={3}>
+        {/* <MDBox>
+          <Grid container spacing={3}>
             <Grid item xs={12} md={6} lg={8}>
               <Projects />
             </Grid>
             <Grid item xs={12} md={6} lg={4}>
               <OrdersOverview />
             </Grid>
-          </Grid> */}
-        </MDBox>
+          </Grid>
+        </MDBox> */}
       </MDBox>
       <Footer />
     </DashboardLayout>

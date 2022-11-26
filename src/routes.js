@@ -49,6 +49,8 @@ import AddUser from "layouts/users/AddUser";
 // import Comment from "layouts/Comments";
 import Category from "layouts/Categories";
 import AddCategory from "layouts/Categories/AddCategory";
+import SignOut from "layouts/SignOut/Signout";
+
 // import Reviews from "layouts/review";
 //react icons
 import { RiQuillPenLine } from "react-icons/ri";
@@ -225,7 +227,17 @@ const routes = [
     icon: <Icon fontSize="small">login</Icon>,
     route: "/authentication/sign-in",
     component: <SignIn />,
+    sidenav: false,
+  },
+  {
+    type: "collapse",
+    name: "SignOut",
+    key: "SignOut",
+    icon: <Icon fontSize="small">SignOut</Icon>,
+    route: "/authentication/sign-in",
+    component: <SignOut/>,
     sidenav: true,
+    
   },
   // {
   //   type: "collapse",
