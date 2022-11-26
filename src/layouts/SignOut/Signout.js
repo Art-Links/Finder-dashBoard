@@ -11,21 +11,12 @@ const SignOut = ({...props}) => {
 
     return(
         <>
-            {loggedIn?
                         <button
                             {...props}
                             className="btn btn-primary w-49"
                             id='signup-bttn'>SIGN OUT
                         </button>
-                     : 
-                    <a href="/login">
-                        <button
-                            className="btn btn-primary w-49"
-                            id='signup-bttn'>login IN
-                        </button>
-                    </a>
-                    
-            }
+                 
         </>
     )
 }
