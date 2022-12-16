@@ -88,7 +88,7 @@ function EditUser() {
                                     <MDBox mb={3}><TextField name="userName" fullWidth label="UserName" value={user.userName} onChange={(e) => setUser({...user, userName: e.target.value})}/></MDBox>
                                     <MDBox mb={3}><TextField name="email" fullWidth label="Email" value={user.email} onChange={(e) => setUser({...user, email: e.target.value})} /></MDBox>
                                     <MDBox mb={3}><TextField name="password" fullWidth label="Password" value={user.password} onChange={(e) => setUser({...user, password: e.target.value})} /></MDBox>
-                                    <MDBox mb={3}><TextField name="userTypeId" fullWidth value={user.passwordConfirmation} label="User Type Id" onChange={(e) => setUser({...user, userTypeId: e.target.value})} /></MDBox>
+                                    <MDBox mb={3}><TextField name="userTypeId" fullWidth value={user.userTypeId} label="UserTypeId" onChange={(e) => setUser({...user, userTypeId: e.target.value})} /></MDBox>
                                     <MDBox>
                                     {/* <MDBox mb={3}>
                                         <LocalizationProvider dateAdapter={AdapterDayjs}>

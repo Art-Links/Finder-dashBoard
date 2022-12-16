@@ -44,7 +44,7 @@ function AddCategory() {
         const json = await edit.json()
         alert(json.messages.join(' '))
         if (json.success) {
-            navigate('/Categories')
+            navigate('/categories')
         }
     }
 

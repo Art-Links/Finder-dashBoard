@@ -26,9 +26,10 @@ function Item() {
         // { Header: "longY", accessor: "longY", align: "center" },
         { Header: "Category", accessor: "Category", align: "center" },
         { Header: "des", accessor: "des", align: "center" },
+        { Header: "questions", accessor: "questions", align: "center" },
         // { Header: "userId", accessor: "userId", align: "center" },
-        { Header: "userName", accessor: "userName", align: "center" },
-        { Header: "isReturned", accessor: "isReturned", align: "center" },
+        // { Header: "userName", accessor: "userName", align: "center" },
+        // { Header: "isReturned", accessor: "isReturned", align: "center" },
         // { Header: "allowedAttempts", accessor: "allowedAttempts", align: "center" },
         { Header: "options", accessor: "options", align: "center" },
     ];
@@ -55,7 +56,7 @@ function Item() {
 
     }
     useEffect(() => {
-        const jsxRows = rows?.map((item, Category) => {
+        const jsxRows = rows?.map((item, Category, questions) => {
             // const categoryName = getCategoryName(book.categoryId)
             // console.log("categoryName", categoryName)
             // console.log("book categories",book.Categories)
@@ -63,14 +64,16 @@ function Item() {
                 id: <>{item.id}</>,
                 name: <>{item.name}</>,
                 img: <>{item.img}</>,
-                Category:<>{item?.Category?.name}</>,
+                Category: <>{item?.Category?.name}</>,
                 // Category: <>{item.Category.name}</>,
                 // latX: <>{item.latX}</>,
                 // longY: <>{item?.longY}</>,
+
+                
                 des: <>{item?.des}</>,
-                // userId: <>{item?.User.id}</>,
-                userName: <>{item?.User.userName}</>,
-                isReturned: <>{item?.isReturned}</>,
+                questions:<><p>{item?.questions[0]?.question}</p> <p>{item?.questions[1]?.question}</p></>,
+                // userName: <>{item?.User.userName}</>,
+                // isReturned: <>{item?.isReturned}</>,
                 // allowedAttempts: <>{item?.allowedAttempts}</>,
 
                 // des: <>{book.des}</>,
