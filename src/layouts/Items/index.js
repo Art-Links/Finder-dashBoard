@@ -27,8 +27,10 @@ function Item() {
         { Header: "Category", accessor: "Category", align: "center" },
         { Header: "des", accessor: "des", align: "center" },
         { Header: "questions", accessor: "questions", align: "center" },
-        // { Header: "userId", accessor: "userId", align: "center" },
-        // { Header: "userName", accessor: "userName", align: "center" },
+        { Header: "answers", accessor: "answers", align: "center" },
+        { Header: "createdAt", accessor: "createdAt", align: "center" },
+        { Header: "updatedAt", accessor: "updatedAt", align: "center" },
+        { Header: "Status", accessor: "Status", align: "center" },
         // { Header: "isReturned", accessor: "isReturned", align: "center" },
         // { Header: "allowedAttempts", accessor: "allowedAttempts", align: "center" },
         { Header: "options", accessor: "options", align: "center" },
@@ -60,19 +62,22 @@ function Item() {
             // const categoryName = getCategoryName(book.categoryId)
             // console.log("categoryName", categoryName)
             // console.log("book categories",book.Categories)
+            // let accepted = (item.answer.accepted);
+            // let Status = accepted.toString();
             return {
-                id: <>{item.id}</>,
-                name: <>{item.name}</>,
-                img: <>{item.img}</>,
+                id: <>{item?.id}</>,
+                name: <>{item?.name}</>,
+                img: <>{item?.img}</>,
                 Category: <>{item?.Category?.name}</>,
-                // Category: <>{item.Category.name}</>,
-                // latX: <>{item.latX}</>,
+                createdAt: <>{item?.createdAt}</>,
+                updatedAt: <>{item?.updatedAt}</>,
                 // longY: <>{item?.longY}</>,
 
-                
+
                 des: <>{item?.des}</>,
-                questions:<><p>{item?.questions[0]?.question}</p> <p>{item?.questions[1]?.question}</p></>,
-                // userName: <>{item?.User.userName}</>,
+                questions: <><p>{item?.questions[0]?.question}</p> <p>{item?.questions[1]?.question}</p></>,
+                answers: <><p>{item?.answer[0]?.answers}</p> <p>{item?.answer[1]?.answers}</p></>,
+                Status: <>{item?.answer?.accepted}</>,
                 // isReturned: <>{item?.isReturned}</>,
                 // allowedAttempts: <>{item?.allowedAttempts}</>,
 
