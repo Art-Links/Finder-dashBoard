@@ -30,8 +30,8 @@ function Item() {
         { Header: "answers", accessor: "answers", align: "center" },
         { Header: "createdAt", accessor: "createdAt", align: "center" },
         { Header: "updatedAt", accessor: "updatedAt", align: "center" },
-        { Header: "Status", accessor: "Status", align: "center" },
-        // { Header: "isReturned", accessor: "isReturned", align: "center" },
+        // { Header: "Status", accessor: "Status", align: "center" },
+        { Header: "isReturned", accessor: "isReturned", align: "center" },
         // { Header: "allowedAttempts", accessor: "allowedAttempts", align: "center" },
         { Header: "options", accessor: "options", align: "center" },
     ];
@@ -76,9 +76,9 @@ function Item() {
 
                 des: <>{item?.des}</>,
                 questions: <><p>{item?.questions[0]?.question}</p> <p>{item?.questions[1]?.question}</p></>,
-                answers: <><p>{item?.answer[0]?.answers}</p> <p>{item?.answer[1]?.answers}</p></>,
-                Status: <>{item?.answer?.accepted}</>,
-                // isReturned: <>{item?.isReturned}</>,
+                //answers: <><p>{item?.answer[0]?.answers}</p> <p>{item?.answer[1]?.answers}</p></>,
+                // Status: <>{item?.answer?.accepted}</>,
+                isReturned: <>{item?.isReturned?"yes":"no"}</>,
                 // allowedAttempts: <>{item?.allowedAttempts}</>,
 
                 // des: <>{book.des}</>,
